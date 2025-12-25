@@ -54,9 +54,9 @@ const ForTheDay = () => {
             {currentVocab ? (
                 <div className="text-center">
                     <h3 className="text-lg font-medium">{currentVocab.word}</h3>
-                    <p className="text-gray-600">{currentVocab.meaning}</p>
+                    <p className="text-gray-600 wrap-break-word whitespace-pre-wrap">{currentVocab.meaning}</p>
                     <p className="text-sm text-gray-500 mt-2">Similar: {currentVocab.similar}</p>
-                    <p className="text-sm text-gray-500">Examples: {currentVocab.examples}</p>
+                    <p className="text-sm text-gray-500 wrap-break-word whitespace-pre-wrap">Examples: {currentVocab.examples}</p>
                 </div>
             ) : (
                 <p className="text-center">Loading...</p>
@@ -71,7 +71,7 @@ const ForTheDay = () => {
             </button>
             {currentTip ? (
                 <div className="text-center">
-                    <p className="text-gray-600">{currentTip.note}</p>
+                    <p className="text-gray-600 wrap-break-word whitespace-pre-wrap">{currentTip.note}</p>
                     <p className="text-sm text-gray-500 mt-2">Field: {currentTip.field}</p>
                 </div>
             ) : (
@@ -87,8 +87,8 @@ const ForTheDay = () => {
             </button>
             {currentTheory ? (
                 <div className="text-center">
-                    <h3 className="text-lg font-medium">{currentTheory.question}</h3>
-                    <p className="text-gray-600">{currentTheory.explanation}</p>
+                    <h3 className="text-lg font-medium wrap-break-word whitespace-pre-wrap">{currentTheory.question}</h3>
+                    <p className="text-gray-600 wrap-break-word whitespace-pre-wrap">{currentTheory.explanation}</p>
                     <p className="text-sm text-gray-500 mt-2">Subject: {currentTheory.subject}</p>
                 </div>
             ) : (
