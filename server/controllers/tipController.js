@@ -68,3 +68,28 @@ export const getDailyTip = async (req, res) => {
         });
     }
 }
+
+export const deleteTip = async (req, res) => {
+    try {
+        const { id } = req.params
+        
+        if (!id) {
+            return res.json({
+                success: false,
+                message: "Tip ID is required"
+            })
+        }
+
+        await Tip.findByIdAndDelete(id)
+
+        res.json({
+            success: true,
+            message: "Tip deleted successfully"
+        })
+    } catch (error) {
+        res.json({
+            success: false,
+            message: error.message
+        })
+    }
+}

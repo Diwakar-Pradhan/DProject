@@ -73,3 +73,28 @@ export const getDailyVocabulary = async (req, res) => {
         });
     }
 }
+
+export const deleteVocabulary = async (req, res) => {
+    try {
+        const { id } = req.params
+        
+        if (!id) {
+            return res.json({
+                success: false,
+                message: "Vocabulary ID is required"
+            })
+        }
+
+        await Vocabulary.findByIdAndDelete(id)
+
+        res.json({
+            success: true,
+            message: "Vocabulary deleted successfully"
+        })
+    } catch (error) {
+        res.json({
+            success: false,
+            message: error.message
+        })
+    }
+}

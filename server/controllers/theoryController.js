@@ -68,3 +68,28 @@ export const getDailyTheory = async (req, res) => {
         });
     }
 }
+
+export const deleteTheory = async (req, res) => {
+    try {
+        const { id } = req.params
+        
+        if (!id) {
+            return res.json({
+                success: false,
+                message: "Theory ID is required"
+            })
+        }
+
+        await Theory.findByIdAndDelete(id)
+
+        res.json({
+            success: true,
+            message: "Theory deleted successfully"
+        })
+    } catch (error) {
+        res.json({
+            success: false,
+            message: error.message
+        })
+    }
+}

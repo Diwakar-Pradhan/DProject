@@ -1,10 +1,31 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { MdAddBox } from "react-icons/md";
+import { MdDelete } from "react-icons/md";
 import { useAppContext } from '../context/AppContext'
 import Header from '../components/Header'
+import toast from 'react-hot-toast'
 
 const Tip = () => {
-    const { tips, navigate } = useAppContext()
+    const { tips, setTips, navigate, axios } = useAppContext()
+    const [isDeleting, setIsDeleting] = useState(null)
+
+    const handleDelete = async (id) => {
+        try {
+            setIsDeleting(id)
+            const response = await axios.delete(`/tip/${id}`)
+            
+            if (response?.data?.success) {
+                toast.success(response.data.message || 'Tip deleted successfully')
+                setTips(tips.filter(tip => tip._id !== id))
+            } else {
+                toast.error(response?.data?.message || 'Failed to delete tip')
+            }
+        } catch (error) {
+            toast.error(error?.response?.data?.message || error.message || 'An error occurred')
+        } finally {
+            setIsDeleting(null)
+        }
+    }
 
   return (
     <div className="min-h-screen bg-[#e8d1c5]">
@@ -36,12 +57,13 @@ const Tip = () => {
                   <tr>
                     <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider w-1/4">Field</th>
                     <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider w-3/4">Note</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Action</th>
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
                   {tips.length === 0 ? (
                     <tr>
-                      <td colSpan="2" className="px-6 py-4 text-center text-gray-500">
+                      <td colSpan="3" className="px-6 py-4 text-center text-gray-500">
                         No tips added yet.
                       </td>
                     </tr>
@@ -53,6 +75,16 @@ const Tip = () => {
                         </td>
                         <td className="px-6 py-4 text-sm text-gray-900 wrap-break-word whitespace-pre-wrap">
                           {tip.note}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm">
+                          <button
+                            onClick={() => handleDelete(tip._id)}
+                            disabled={isDeleting === tip._id}
+                            className="text-red-600 hover:text-red-800 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                            title="Delete tip"
+                          >
+                            <MdDelete size={20} />
+                          </button>
                         </td>
                       </tr>
                     ))
