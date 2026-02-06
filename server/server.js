@@ -4,7 +4,6 @@ dotenv.config()
 import cors from 'cors'
 import connectDB from './configs/db.js';
 import vocabularyRouter from './routes/vocabularyRoutes.js';
-import { getVocabulary } from './controllers/vocabularyController.js';
 import tipRouter from './routes/tipRoutes.js';
 import theoryRouter from './routes/theoryRoutes.js';
 
