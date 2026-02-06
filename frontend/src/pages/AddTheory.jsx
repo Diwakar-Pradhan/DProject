@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useAppContext } from '../context/AppContext'
 import Header from '../components/Header'
+import toast from 'react-hot-toast'
 
 const AddTheory = () => {
 
@@ -21,16 +22,16 @@ const AddTheory = () => {
                 explanation
             })
 
-            if (response.data.success) {
-                toast.success(response.data.message)
+            if (response?.data?.success) {
+                toast.success(response.data.message || 'Theory added successfully')
                 setSubject('')
                 setQuestion('')
                 setExplanation('')
             } else {
-                toast.error(response.data.message)
+                toast.error(response?.data?.message || 'Failed to add theory')
             }
         } catch (error) {
-            toast.error(error.message)
+            toast.error(error?.response?.data?.message || error.message || 'An error occurred')
         } finally {
             setIsAdding(false)
         }

@@ -20,15 +20,15 @@ const AddTip = () => {
                 note
             })
 
-            if(response.data.success) {
-                toast.success(response.data.message)
+            if(response?.data?.success) {
+                toast.success(response.data.message || 'Tip added successfully')
                 setField('')
                 setNote('')
             } else {
-                toast.error(response.data.message)
+                toast.error(response?.data?.message || 'Failed to add tip')
             }
         } catch (error) {
-            toast.error(error.message)
+            toast.error(error?.response?.data?.message || error.message || 'An error occurred')
         } finally {
             setIsAdding(false)
         }

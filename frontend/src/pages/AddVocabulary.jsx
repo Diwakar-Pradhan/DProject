@@ -24,17 +24,17 @@ const AddVocabulary = () => {
                 examples
             })
 
-            if (response.data.success) {
-                toast.success(response.data.message)
+            if (response?.data?.success) {
+                toast.success(response.data.message || 'Vocabulary added successfully')
                 setWord('')
                 setMeaning('')
                 setSimilar('')
                 setExamples('')
             } else {
-                toast.error(response.data.message)
+                toast.error(response?.data?.message || 'Failed to add vocabulary')
             }
         } catch (error) {
-            toast.error(error.message)
+            toast.error(error?.response?.data?.message || error.message || 'An error occurred')
         } finally {
             setIsAdding(false)
         }
